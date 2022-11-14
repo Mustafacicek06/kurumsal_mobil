@@ -1,0 +1,14 @@
+{
+    "continueText": "CONTINUE",
+    "showButton": "SHOW",
+    "logOut": "LOG OUT",
+    "logOutText": "Are you sure you want to log out?",
+    "login": {
+        "welcome": "Welcome",
+
+        "login": "Login",
+        "email": "E-mail",
+        "password": "Password",
+        "forgotPassword": "Forgot password?"
+      }
+}

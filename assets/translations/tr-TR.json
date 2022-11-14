@@ -1,0 +1,14 @@
+{
+    "continueText": "Devam Et",
+    "showButton": "Göster",
+
+    "logOut": "Çıkış Yap",
+    "logOutText": "Çıkış yapmak istediğinden emin misin?",
+    "login": {
+        "welcome": "Hoşgeldiniz",
+        "login": "Giriş Yap",
+        "email": "E-mail",
+        "password": "Şifre",
+        "forgotPassword": "Şifremi Unuttum?"
+      }
+}
