@@ -10,7 +10,7 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.primaryColor,
+      backgroundColor: Colors.white,
       body: GetBuilder<SplashController>(
         id: SplashController.splashPageObserveID,
         init: controller,
@@ -19,8 +19,8 @@ class SplashPage extends GetView<SplashController> {
             tag: AssetsPath.alisanLOGO,
             child: Image.asset(
               AssetsPath.alisanLOGO,
-              width: 125.w,
-              height: 170.h,
+              width: 200.w,
+              height: 200.h,
             ),
           ),
         ),

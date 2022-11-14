@@ -15,6 +15,7 @@ class LoginPage extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     var loginText = "Hoşgeldiniz";
+
     return Scaffold(
       body: GetBuilder<LoginPageController>(
           id: LoginPageController.loginPageObserveID,
@@ -64,7 +65,7 @@ class LoginPage extends GetView<LoginPageController> {
                             },
                             child: Text("Şifremi Unuttum")),
                         SlideTransitionContainer(
-                          begin: const Offset(0, 8),
+                          begin: const Offset(-1, 0),
                           child: buildLoginButton(
                             context,
                             Icons.phone,
