@@ -41,7 +41,7 @@ class LoginPage extends GetView<LoginPageController> {
                       space: 15.h,
                       children: [
                         LoginTextField(
-                          hintText: "Ema il",
+                          hintText: "Email",
                           prefixIcon: Icons.email,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -50,7 +50,7 @@ class LoginPage extends GetView<LoginPageController> {
                           },
                         ),
                         LoginTextField(
-                          hintText: "Email",
+                          hintText: "Password",
                           prefixIcon: Icons.password,
                           isPasswordTextField: true,
                           validator: (value) {
@@ -63,7 +63,7 @@ class LoginPage extends GetView<LoginPageController> {
                             onTap: () {
                               // LoginPageController.forgotPasswordOntap();
                             },
-                            child: Text("Şifremi Unuttum")),
+                            child: Text("Forgot Password?")),
                         SlideTransitionContainer(
                           begin: const Offset(-1, 0),
                           child: buildLoginButton(
