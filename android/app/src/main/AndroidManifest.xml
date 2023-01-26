@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kurumsal_mobil">
+    package="com.example.kurumsal">
    <application
         android:label="kurumsal_mobil"
         android:name="${applicationName}"

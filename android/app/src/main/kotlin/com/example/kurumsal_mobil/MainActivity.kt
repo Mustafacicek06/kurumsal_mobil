@@ -1,4 +1,4 @@
-package com.example.kurumsal_mobil
+package com.example.kurumsal
 
 import io.flutter.embedding.android.FlutterActivity
 
