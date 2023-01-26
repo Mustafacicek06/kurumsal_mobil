@@ -9,11 +9,14 @@ import 'package:kurumsal_mobil/core/init/manager/local_manager.dart';
 import 'package:kurumsal_mobil/core/init/theme/theme_service.dart';
 
 import 'package:kurumsal_mobil/product/navigation/app_pages.dart';
+import 'firebase_options.dart';
 
 void main() async {
   await LocalManager.instance.initializeHive();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   //landscape orientation
   WidgetsFlutterBinding.ensureInitialized();

@@ -41,6 +41,6 @@ class UserRepository {
       String eMail, String sifre) async {
     UserModel? _userModel =
         await _firebaseAuthService.signInWithEmailandPassword(eMail, sifre);
-    return await _fireStoreDBService.readUser(_userModel.userID!);
+    return _userModel;
   }
 }

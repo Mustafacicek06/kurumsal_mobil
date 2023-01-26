@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kurumsal_mobil/core/components/animation/slide_transition_container.dart';
 import 'package:kurumsal_mobil/core/components/columnWithSpacing/column_with_spacing.dart';
+import 'package:kurumsal_mobil/core/components/dialog/platform_responsive_alert_dialog.dart';
+import 'package:kurumsal_mobil/core/init/model/user_model.dart';
 import 'package:kurumsal_mobil/core/init/theme/app_color_service.dart';
 import 'package:kurumsal_mobil/features/home/subPages/selectionMouleScreen.dart';
 import 'package:kurumsal_mobil/features/login/controller/login_page_controller.dart';
@@ -16,6 +19,9 @@ class LoginPage extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     var loginText = "Hoşgeldiniz";
+
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       body: GetBuilder<LoginPageController>(
@@ -43,6 +49,7 @@ class LoginPage extends GetView<LoginPageController> {
                       children: [
                         LoginTextField(
                           hintText: "Email",
+                          controller: emailController,
                           prefixIcon: Icons.email,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -52,6 +59,7 @@ class LoginPage extends GetView<LoginPageController> {
                         ),
                         LoginTextField(
                           hintText: "Password",
+                          controller: passwordController,
                           prefixIcon: Icons.password,
                           isPasswordTextField: true,
                           validator: (value) {
@@ -71,11 +79,20 @@ class LoginPage extends GetView<LoginPageController> {
                             context,
                             Icons.phone,
                             "Giriş Yap",
-                            () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) =>
-                                        selectionModuleScreen()))),
+                            () {
+                              if (emailController.text.isNotEmpty &&
+                                  passwordController.text.isNotEmpty) {
+                                _formSubmit(context, emailController.text,
+                                    passwordController.text);
+                              } else {
+                                PlatformResponsiveAlertDialog(
+                                  anaButonYazisi: "Tamam",
+                                  baslik: "Oturum Açma Hata",
+                                  icerik:
+                                      "Kullanıcı adı veya Şifre Boş Geçilemez.",
+                                ).myShowMethod(context);
+                              }
+                            },
                           ),
                         ),
                       ],
@@ -99,5 +116,33 @@ class LoginPage extends GetView<LoginPageController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
         ),
         child: Text(text));
+  }
+
+  void _formSubmit(BuildContext context, String email, String sifre) async {
+    try {
+      UserModel? _signInUser =
+          await controller.signInWithEmailandPassword(email, sifre, context);
+
+      if (_signInUser.email != null) {
+        Get.to(() => selectionModuleScreen());
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        debugPrint("Widget oturum açma hata yakalandı : " + e.code.toString());
+        PlatformResponsiveAlertDialog(
+          anaButonYazisi: "Tamam",
+          baslik: "Oturum Açma Hata",
+          icerik:
+              "Bu kullanıcı sistemde bulunmamaktadır. Lütfen kullanıcı oluşturunuz.",
+        ).myShowMethod(context);
+      } else if (e.code == 'wrong-password') {
+        debugPrint("Widget oturum açma hata yakalandı : " + e.code.toString());
+        PlatformResponsiveAlertDialog(
+          anaButonYazisi: "Tamam",
+          baslik: "Oturum Açma Hata",
+          icerik: "Kullanıcı adı veya Şifre hatalı.",
+        ).myShowMethod(context);
+      }
+    }
   }
 }

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kurumsal_mobil/core/components/dialog/platform_responsive_alert_dialog.dart';
+import 'package:kurumsal_mobil/core/init/model/it_request.dart';
+import 'package:kurumsal_mobil/core/init/model/user_model.dart';
+import 'package:kurumsal_mobil/core/init/network/firebase_auth_service.dart';
+import 'package:kurumsal_mobil/core/init/network/firestore_db_service.dart';
 import 'package:kurumsal_mobil/features/home/subPages/bottomAppBarTools.dart';
 
 class ytsScreen extends StatefulWidget {
@@ -15,6 +20,25 @@ class _ytsScreenState extends State<ytsScreen> {
   bool isCheckedOkuma = false;
   bool isCheckedYazma = false;
   bool isCheckedDegistirme = false;
+
+  TextEditingController _talepTarihi = TextEditingController();
+  TextEditingController _systemName = TextEditingController();
+  TextEditingController _description = TextEditingController();
+
+  FireStoreDBService _fireStoreDBService = FireStoreDBService();
+  FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
+
+  UserModel? userModel;
+
+  @override
+  void initState() {
+    getUserID();
+    super.initState();
+  }
+
+  getUserID() async {
+    userModel = await _firebaseAuthService.currentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +86,7 @@ class _ytsScreenState extends State<ytsScreen> {
                     labelText: "Talep Tarihi",
                     labelStyle:
                         Theme.of(context).textTheme.subtitle2?.copyWith()),
+                controller: _talepTarihi,
                 keyboardType: TextInputType.datetime,
               ),
             ),
@@ -210,6 +235,7 @@ class _ytsScreenState extends State<ytsScreen> {
                     labelText: "Erişilecek Sistem Adı",
                     labelStyle:
                         Theme.of(context).textTheme.subtitle2?.copyWith()),
+                controller: _systemName,
                 keyboardType: TextInputType.datetime,
               ),
             ),
@@ -224,16 +250,14 @@ class _ytsScreenState extends State<ytsScreen> {
                     labelText: "Açıklama(Talep Sebeini Detaylandırınız)",
                     labelStyle:
                         Theme.of(context).textTheme.subtitle2?.copyWith()),
+                controller: _description,
                 keyboardType: TextInputType.datetime,
               ),
             ),
           ),
           Expanded(
               child: ElevatedButton(
-            onPressed: () {
-              // Navigator.push(
-              //    context, MaterialPageRoute(builder: ((context) => deneme())));
-            },
+            onPressed: saveButtonOnPressed,
             child: SizedBox(
                 width: en * 0.65,
                 child: Text(
@@ -250,5 +274,35 @@ class _ytsScreenState extends State<ytsScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: bottomAppBar(context),
     );
+  }
+
+  void saveButtonOnPressed() async {
+    final result = await _fireStoreDBService.saveITRequest(ItRequest(
+      userID: userModel?.userID ?? "",
+      accessShape: AccessShape(
+          change: isCheckedDegistirme,
+          read: isCheckedOkuma,
+          write: isCheckedYazma),
+      accessType: AccessType(
+          dataBase: isCheckedVeriTabani,
+          server: isCheckedSunucu,
+          table: isCheckedTablo),
+      systemName: _systemName.text,
+      description: _description.text,
+    ));
+
+    if (result) {
+      PlatformResponsiveAlertDialog(
+        anaButonYazisi: "Tamam",
+        baslik: "İsteğiniz Başarıyla kaydedildi",
+        icerik: "Yöneticinizin onay verilmesi bekleniyor..",
+      ).myShowMethod(context);
+    } else {
+      PlatformResponsiveAlertDialog(
+        anaButonYazisi: "Tamam",
+        baslik: "Kaydetme Başarısız",
+        icerik: "İsteğiniz kaydedilemedi. Lütfen daha sonra tekrar deneyiniz.",
+      ).myShowMethod(context);
+    }
   }
 }

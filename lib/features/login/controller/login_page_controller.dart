@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:kurumsal_mobil/core/components/dialog/platform_responsive_alert_dialog.dart';
 import 'package:kurumsal_mobil/core/init/model/user_model.dart';
 import 'package:kurumsal_mobil/core/init/respository/user_respository.dart';
 import 'package:kurumsal_mobil/product/navigation/app_navigation.dart';
@@ -63,18 +64,29 @@ class LoginPageController extends GetxController {
 
   @override
   Future<UserModel> signInWithEmailandPassword(
-      String eMail, String sifre) async {
+      String eMail, String sifre, BuildContext context) async {
     try {
       if (_emailSifreKontrol(eMail, sifre)) {
         user.value =
             await _userRepository.signInWithEmailandPassword(eMail, sifre);
         return user.value;
       } else {
-        debugPrint('hata signInWithMail in userview model');
+        PlatformResponsiveAlertDialog(
+          anaButonYazisi: "Tamam",
+          baslik: "Oturum Açma Hata",
+          icerik: passwordErrorMessage.value != ''
+              ? passwordErrorMessage.value
+              : emailErrorMessage.value,
+        ).myShowMethod(context);
         return user.value;
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       debugPrint('hata signInWithMail in userview model' + e.toString());
+      PlatformResponsiveAlertDialog(
+        anaButonYazisi: "Ok",
+        baslik: "Login Error",
+        icerik: e.message.toString(),
+      ).myShowMethod(context);
       return user.value;
     }
 

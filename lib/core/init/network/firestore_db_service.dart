@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:kurumsal_mobil/core/init/model/it_request.dart';
 import 'package:kurumsal_mobil/core/init/model/user_model.dart';
 
 class FireStoreDBService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  @override
   Future<bool> saveUser(UserModel userModel) async {
     // document'i okumak
     DocumentSnapshot _readUser =
@@ -23,6 +23,15 @@ class FireStoreDBService {
           .doc(userModel.userID)
           .set(userModel.toMap());
     }
+
+    return true;
+  }
+
+  Future<bool> saveITRequest(ItRequest requestModel) async {
+    await _firestore
+        .collection("request")
+        .doc(requestModel.userID)
+        .set(requestModel.toJson());
 
     return true;
   }

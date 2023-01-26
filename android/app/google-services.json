@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "296368390174",
+    "project_id": "kurumsal-mobil",
+    "storage_bucket": "kurumsal-mobil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296368390174:android:b002526890c4d7d16d2e0f",
+        "android_client_info": {
+          "package_name": "com.example.kurumsal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296368390174-s2lshf8ll8917e2e8333e0ka3fhu1297.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJAL61LppsmKy-8Gagd72i-IjKCGje70s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296368390174-s2lshf8ll8917e2e8333e0ka3fhu1297.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296368390174-nda4au63a3bs4dckgl36c0eq6d5eg49t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kurumsal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
