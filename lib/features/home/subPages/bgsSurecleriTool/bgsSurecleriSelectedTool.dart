@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kurumsal_mobil/features/home/subPages/bilgiTeknolojileri/it_manager_confirm.dart';
 import 'package:kurumsal_mobil/features/home/subPages/bilgiTeknolojileri/yeni_islem_talebi_screen.dart';
 
 Widget bGSScreenSelected(IconData icon, String name, double en,
@@ -8,6 +9,9 @@ Widget bGSScreenSelected(IconData icon, String name, double en,
       if (name == "Yeni Erişim Talebi") {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => ytsScreen()));
+      } else if (name == "BT Yönetici Onay") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ITManagerConfirmPage()));
       }
     },
     child: Container(
