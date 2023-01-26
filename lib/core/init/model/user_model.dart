@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String userID;
+  String? userID;
   String? email;
   String? userName;
   String? profilUrl;
@@ -12,8 +12,13 @@ class UserModel {
   int? seviye;
 
   UserModel({
-    required this.userID,
-    required this.email,
+    this.userID,
+    this.email,
+    this.userName,
+    this.profilUrl,
+    this.createdAt,
+    this.updatedAt,
+    this.seviye,
   });
 
   // firestor set map için

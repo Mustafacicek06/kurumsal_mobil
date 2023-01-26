@@ -14,7 +14,7 @@ class UserRepository {
   Future<UserModel?> currentUser() async {
     UserModel _user = await _firebaseAuthService.currentUser();
     if (_user != null) {
-      return await _fireStoreDBService.readUser(_user.userID);
+      return await _fireStoreDBService.readUser(_user.userID!);
     }
     return null;
   }
@@ -30,7 +30,7 @@ class UserRepository {
         await _firebaseAuthService.createUserWithEmailandPassword(eMail, sifre);
     bool _result = await _fireStoreDBService.saveUser(_user);
     if (_result) {
-      return await _fireStoreDBService.readUser(_user.userID);
+      return await _fireStoreDBService.readUser(_user.userID!);
     } else {
       return _user;
     }
@@ -41,6 +41,6 @@ class UserRepository {
       String eMail, String sifre) async {
     UserModel? _userModel =
         await _firebaseAuthService.signInWithEmailandPassword(eMail, sifre);
-    return await _fireStoreDBService.readUser(_userModel.userID);
+    return await _fireStoreDBService.readUser(_userModel.userID!);
   }
 }
