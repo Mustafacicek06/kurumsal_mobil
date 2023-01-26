@@ -59,6 +59,12 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
     var en = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "BT Yönetici Onay",
+          style: Theme.of(context).textTheme.headline5?.copyWith(
+                color: Colors.black,
+              ),
+        ),
         leading: IconButton(
           icon: Icon(
             Icons.chevron_left_outlined,
@@ -71,28 +77,20 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: Get.height * 0.8,
+          height: Get.height * 0.75,
           child: Column(
             children: [
-              Text(
-                "BT Yönetici Onay",
-                style: Theme.of(context).textTheme.headline5?.copyWith(
-                      color: Colors.black,
-                    ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Talep Tarihi",
-                        labelStyle:
-                            Theme.of(context).textTheme.subtitle2?.copyWith()),
-                    controller: _talepTarihi,
-                    keyboardType: TextInputType.datetime,
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Talep Tarihi",
+                      labelStyle:
+                          Theme.of(context).textTheme.subtitle2?.copyWith()),
+                  controller: _talepTarihi,
+                  keyboardType: TextInputType.datetime,
                 ),
               ),
               Expanded(
@@ -308,19 +306,36 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
                 ),
               ),
               Expanded(
-                  child: ElevatedButton(
-                onPressed: saveButtonOnPressed,
-                child: SizedBox(
-                    width: en * 0.55,
-                    child: Text(
-                      "Gönder",
-                      textAlign: TextAlign.center,
-                    )),
-                style: ElevatedButton.styleFrom(
-                    maximumSize: Size(Get.width * 0.5, Get.height * 0.1),
-                    backgroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20))),
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: saveButtonOnPressed,
+                    child: SizedBox(
+                        width: en * 0.35,
+                        child: Text(
+                          "Onayla",
+                          textAlign: TextAlign.center,
+                        )),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                  ),
+                  ElevatedButton(
+                    onPressed: saveButtonOnPressed,
+                    child: SizedBox(
+                        width: en * 0.35,
+                        child: Text(
+                          "Reddet",
+                          textAlign: TextAlign.center,
+                        )),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                  ),
+                ],
               ))
             ],
           ),
