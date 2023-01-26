@@ -18,18 +18,19 @@ class OnBoardPage extends GetView<OnBoardController> {
       globalBackgroundColor: AppColorService.white,
       pages: [
         PageViewModel(
-          title: "hello",
-          body: "",
+          title: "ALIŞAN Sigorta ve Aracılık Hizmetleri A.Ş.",
+          body: "Riskleriniz bize emanet",
           image: buildImage(
-            AssetsPath.alisanLOGO,
+            AssetsPath.onboard1,
           ),
           decoration: buildPageDecoration(context),
         ),
         PageViewModel(
-          title: "hello",
-          body: "",
+          title: "Uluslararası Taşımacılık",
+          body:
+              "Türkiye’ den Avrupa, İskandinav Ülkeleri, Balkanlar ve Ortadoğu’ ya transit sevkiyatlarımızı 200’ ün üzerindeki araç filomuz ile yapmaktayız.",
           image: buildImage(
-            AssetsPath.alisanLOGO,
+            AssetsPath.onboard2,
           ),
           decoration: buildPageDecoration(context),
         ),

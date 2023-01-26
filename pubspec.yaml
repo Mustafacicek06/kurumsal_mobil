@@ -43,6 +43,8 @@ dependencies:
   hive_flutter: ^1.1.0
   introduction_screen: ^3.0.2
   easy_localization: ^3.0.1
+  flutter_svg: ^1.1.6
+  circular_profile_avatar: ^2.0.5
 
 dev_dependencies:
   flutter_test:

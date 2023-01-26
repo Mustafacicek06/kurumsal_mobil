@@ -13,7 +13,10 @@ class ThemeService {
     backgroundColor: AppColorService.white,
     brightness: Brightness.light,
     appBarTheme: AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle.light,
+      centerTitle: true,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
     ),
     textTheme: GoogleFonts.poppinsTextTheme().copyWith(),
   );

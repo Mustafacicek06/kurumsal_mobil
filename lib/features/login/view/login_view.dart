@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kurumsal_mobil/core/components/animation/slide_transition_container.dart';
 import 'package:kurumsal_mobil/core/components/columnWithSpacing/column_with_spacing.dart';
 import 'package:kurumsal_mobil/core/init/theme/app_color_service.dart';
+import 'package:kurumsal_mobil/features/home/subPages/selectionMouleScreen.dart';
 import 'package:kurumsal_mobil/features/login/controller/login_page_controller.dart';
 import 'package:kurumsal_mobil/features/login/view/components/login_text_field.dart';
 
@@ -35,8 +36,8 @@ class LoginPage extends GetView<LoginPageController> {
                 Expanded(
                   flex: 3,
                   child: Form(
-                      child: SizedBox(
-                    width: 300.w,
+                      child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: ColumnWithSpacing(
                       space: 15.h,
                       children: [
@@ -70,7 +71,11 @@ class LoginPage extends GetView<LoginPageController> {
                             context,
                             Icons.phone,
                             "Giriş Yap",
-                            controller.loginButtonOnTap,
+                            () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        selectionModuleScreen()))),
                           ),
                         ),
                       ],

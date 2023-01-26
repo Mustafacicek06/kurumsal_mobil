@@ -30,10 +30,10 @@ class AppPages {
       page: () => const LoginPage(),
       binding: LoginPageBinding(),
     ),
-    GetPage(
-      name: AppNavigation.home,
-      page: () => const HomePage(),
-      binding: HomePageBinding(),
-    ),
+    // GetPage(
+    //   name: AppNavigation.home,
+    //   page: () => const HomePage(),
+    //   binding: HomePageBinding(),
+    // ),
   ];
 }
