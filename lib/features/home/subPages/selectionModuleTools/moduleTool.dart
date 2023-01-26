@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kurumsal_mobil/core/init/network/firebase_auth_service.dart';
 import 'package:kurumsal_mobil/features/home/subPages/bilgiTeknolojileri/bilgiTeknolojileriIslemSecimScreen.dart';
 
 moduleTool(IconData moduleIcon, String moduleName, BuildContext context) {
@@ -9,6 +10,12 @@ moduleTool(IconData moduleIcon, String moduleName, BuildContext context) {
         if (moduleName == "Bilgi Teknolojileri") {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => btIslemSecim()));
+        } else if (moduleName == "Çıkış") {
+          final result = FirebaseAuthService().signOut();
+          if (result != null) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, "/login", (route) => false);
+          }
         }
       },
       child: Container(
