@@ -20,7 +20,7 @@ Widget bGSScreenSelected(IconData icon, String name, double en,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: Colors.red),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(14.0),
         child: Row(
           children: [
             Icon(

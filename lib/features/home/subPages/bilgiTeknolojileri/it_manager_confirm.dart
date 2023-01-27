@@ -22,6 +22,8 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
   bool isCheckedYazma = false;
   bool isCheckedDegistirme = false;
 
+  TextEditingController _talepNo = TextEditingController();
+  TextEditingController _talepOwner = TextEditingController();
   TextEditingController _talepTarihi = TextEditingController();
   TextEditingController _systemName = TextEditingController();
   TextEditingController _description = TextEditingController();
@@ -30,15 +32,40 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
   FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
 
   UserModel? userModel;
+  ItRequest? itRequest;
 
   @override
   void initState() {
     getUserID();
+    getITRequest();
     super.initState();
+  }
+
+  getITRequest() async {
+    itRequest =
+        await _fireStoreDBService.getITRequest("HBbqfC9uQaYIIiAHXFHea56LzOH3");
+    if (itRequest != null) {
+      _talepNo.text = "TALEP001";
+      _talepOwner.text = "Mustafa Yasin Çiçek";
+      _talepTarihi.text = itRequest?.requestDate ?? "";
+      _systemName.text = itRequest!.systemName!;
+      _description.text = itRequest!.description!;
+      isCheckedVeriTabani = itRequest!.accessType!.dataBase!;
+      isCheckedSunucu = itRequest!.accessType!.server!;
+      isCheckedTablo = itRequest!.accessType!.table!;
+      isCheckedOkuma = itRequest!.accessShape!.read!;
+      isCheckedYazma = itRequest!.accessShape!.write!;
+      isCheckedDegistirme = itRequest!.accessShape!.change!;
+    } else {
+      debugPrint("itRequest null");
+    }
+
+    setState(() {});
   }
 
   getUserID() async {
     userModel = await _firebaseAuthService.currentUser();
+    setState(() {});
   }
 
   @override
@@ -86,10 +113,10 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      labelText: "Talep Tarihi",
+                      labelText: "Talep No",
                       labelStyle:
                           Theme.of(context).textTheme.subtitle2?.copyWith()),
-                  controller: _talepTarihi,
+                  controller: _talepNo,
                   keyboardType: TextInputType.datetime,
                 ),
               ),
@@ -100,10 +127,10 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        labelText: "Talep Tarihi",
+                        labelText: "Talep Sahibi",
                         labelStyle:
                             Theme.of(context).textTheme.subtitle2?.copyWith()),
-                    controller: _talepTarihi,
+                    controller: _talepOwner,
                     keyboardType: TextInputType.datetime,
                   ),
                 ),
@@ -185,7 +212,7 @@ class _ITManagerConfirmPageState extends State<ITManagerConfirmPage> {
                                       });
                                     },
                                   ),
-                                  Text("silme"),
+                                  Text("Tablo"),
                                 ],
                               ),
                             ],
